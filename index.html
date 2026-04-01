@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WorldScope</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>WorldScope</h1>
+  </header>
+
+  <section class="controls">
+    <input type="text" id="search" placeholder="Search country..." />
+
+    <select id="region">
+      <option value="">All Regions</option>
+      <option value="Africa">Africa</option>
+      <option value="Americas">Americas</option>
+      <option value="Asia">Asia</option>
+      <option value="Europe">Europe</option>
+      <option value="Oceania">Oceania</option>
+    </select>
+
+    <select id="sort">
+      <option value="">Sort by Population</option>
+      <option value="asc">Low to High</option>
+      <option value="desc">High to Low</option>
+    </select>
+  </section>
+
+  <div id="loader" class="loader"></div>
+
+  <section id="countries" class="countries"></section>
+
+  <p id="noResults" class="no-results">No results found</p>
+
+  <script src="script.js"></script>
+</body>
+</html>
