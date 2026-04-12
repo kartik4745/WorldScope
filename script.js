@@ -6,8 +6,6 @@ const loader = document.getElementById("loader");
 const noResults = document.getElementById("noResults");
 
 let allCountries = [];
-
-
 async function fetchCountries() {
   try {
     loader.style.display = "block";
