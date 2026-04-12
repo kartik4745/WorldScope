@@ -8,14 +8,32 @@
 body {
   background: #f5f7fa;
   color: #333;
+  transition: 0.3s;
 }
 
+
+body.dark {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+body.dark .country {
+  background: #2c2c2c;
+}
 
 header {
   background: #2c3e50;
   color: white;
   padding: 20px;
   text-align: center;
+}
+
+#themeToggle {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
 }
 
 
@@ -34,7 +52,6 @@ header {
   border: 1px solid #ccc;
   min-width: 180px;
 }
-
 
 .loader {
   border: 6px solid #f3f3f3;
@@ -61,18 +78,11 @@ header {
   padding: 20px;
 }
 
-
 .country {
   background: white;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.country:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .country img {
@@ -87,29 +97,19 @@ header {
 
 .country p {
   margin: 5px 10px 10px;
-  font-size: 14px;
 }
 
 
 .no-results {
   text-align: center;
-  font-size: 18px;
   display: none;
   margin-bottom: 20px;
 }
 
 
-@media (max-width: 600px) {
-  header h1 {
-    font-size: 22px;
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    align-items: center;
   }
-}
-
-.controls {
-  display: flex;
-  gap: 10px;
-}
-
-.country {
-  background: white;
 }
