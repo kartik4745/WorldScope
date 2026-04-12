@@ -4,8 +4,25 @@ const regionFilter = document.getElementById("region");
 const sortSelect = document.getElementById("sort");
 const loader = document.getElementById("loader");
 const noResults = document.getElementById("noResults");
+const themeToggle = document.getElementById("themeToggle");
 
 let allCountries = [];
+
+
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+});
+
+
+function debounce(func, delay) {
+  let timer;
+  return function () {
+    clearTimeout(timer);
+    timer = setTimeout(() => func(), delay);
+  };
+}
+
+
 async function fetchCountries() {
   try {
     loader.style.display = "block";
@@ -16,7 +33,7 @@ async function fetchCountries() {
     allCountries = data;
     displayCountries(allCountries);
   } catch (error) {
-    console.error("Error fetching countries:", error);
+    console.error(error);
   } finally {
     loader.style.display = "none";
   }
@@ -38,10 +55,10 @@ function displayCountries(countries) {
     div.className = "country";
 
     div.innerHTML = `
-      <img src="${country.flags?.svg || country.flags?.png || ''}" alt="flag" class="flag" />
-      <h3>${country.name?.common || 'N/A'}</h3>
+      <img src="${country.flags?.svg || ''}" />
+      <h3>${country.name?.common}</h3>
       <p><b>Capital:</b> ${country.capital?.[0] || "N/A"}</p>
-      <p><b>Population:</b> ${country.population?.toLocaleString() || "N/A"}</p>
+      <p><b>Population:</b> ${country.population.toLocaleString()}</p>
       <p><b>Region:</b> ${country.region}</p>
     `;
 
@@ -56,21 +73,17 @@ function filterCountries() {
   const searchValue = searchInput.value.toLowerCase();
   if (searchValue) {
     filtered = filtered.filter(c =>
-      c.name?.common?.toLowerCase().includes(searchValue)
+      c.name.common.toLowerCase().includes(searchValue)
     );
   }
 
- 
-  const regionValue = regionFilter.value;
-  if (regionValue) {
-    filtered = filtered.filter(c => c.region === regionValue);
+  if (regionFilter.value) {
+    filtered = filtered.filter(c => c.region === regionFilter.value);
   }
 
- 
-  const sortValue = sortSelect.value;
-  if (sortValue === "asc") {
+  if (sortSelect.value === "asc") {
     filtered.sort((a, b) => a.population - b.population);
-  } else if (sortValue === "desc") {
+  } else if (sortSelect.value === "desc") {
     filtered.sort((a, b) => b.population - a.population);
   }
 
@@ -78,7 +91,7 @@ function filterCountries() {
 }
 
 
-searchInput.addEventListener("input", filterCountries);
+searchInput.addEventListener("input", debounce(filterCountries, 300));
 regionFilter.addEventListener("change", filterCountries);
 sortSelect.addEventListener("change", filterCountries);
 
